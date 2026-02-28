@@ -43,6 +43,7 @@ export async function GET(request: Request) {
     const departureDate = searchParams.get('departureDate');
     const adults = searchParams.get('adults') || '1';
     const travelClass = searchParams.get('travelClass') || 'ECONOMY';
+    const currencyCode = searchParams.get('currencyCode') || 'BDT';
 
     if (!origin || !destination || !departureDate) {
         return NextResponse.json(
@@ -54,7 +55,7 @@ export async function GET(request: Request) {
     try {
         const token = await getAccessToken();
 
-        const url = `${AMADEUS_BASE_URL}/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=${adults}&travelClass=${travelClass.toUpperCase()}&max=10`;
+        const url = `${AMADEUS_BASE_URL}/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=${adults}&travelClass=${travelClass.toUpperCase()}&currencyCode=${currencyCode}&max=10`;
 
         const response = await fetch(url, {
             headers: {

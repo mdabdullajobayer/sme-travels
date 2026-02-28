@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Menu, User, MessageCircle } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Navbar() {
     return (
@@ -9,7 +10,7 @@ export default function Navbar() {
                     {/* Logo */}
                     <div className="flex-shrink-0 flex items-center">
                         <Link href="/" className="text-2xl font-bold text-primary flex items-center gap-1">
-                            <span className="text-secondary text-3xl">amy</span>gozayaan
+                            <Image src="/sme_logo.png" alt="Logo" width={180} height={100} />
                         </Link>
                     </div>
 

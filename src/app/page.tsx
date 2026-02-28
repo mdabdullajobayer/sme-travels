@@ -1,7 +1,10 @@
 import Hero from "@/components/Hero";
 import Promotions from "@/components/Promotions";
 import PopularDestinations from "@/components/PopularDestinations";
-
+import WhyChooseUs from "@/components/WhyChooseUs";
+import DownloadApp from "@/components/DownloadApp";
+import TravelPartners from "@/components/TravelPartners";
+import Newsletter from "@/components/Newsletter";
 export default function Home() {
   return (
     <div className="flex flex-col gap-8 min-h-screen">
@@ -13,6 +16,15 @@ export default function Home() {
       <Promotions />
 
       <PopularDestinations />
+
+      <WhyChooseUs />
+
+      <DownloadApp />
+
+      <Newsletter />
+
+      <TravelPartners />
+
     </div>
   );
 }

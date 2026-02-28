@@ -1,5 +1,6 @@
 import React from 'react';
 import { Facebook, Youtube, Instagram, MapPin, Mail, Phone } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Footer() {
     return (
@@ -90,7 +91,7 @@ export default function Footer() {
                 {/* Lower Section (Copyright) */}
                 <div className="border-t border-white/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
                     <div className="text-2xl font-bold tracking-tight">
-                        amy<span className="text-secondary">gozayaan</span>
+                        <Image src="/sme_logo.png" alt="Logo" width={180} height={100} />
                     </div>
                     <p className="text-sm text-slate-300">
                         &copy; Copyright {new Date().getFullYear()} AmyGozayaan Ltd.
