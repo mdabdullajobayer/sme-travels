@@ -29,12 +29,6 @@ export default function SearchWidget() {
                 {activeTab === 'Umrah' && <UmrahSearch />}
             </div>
 
-            {/* Floating Search Button */}
-            <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2">
-                <button className="bg-secondary hover:bg-secondary-hover text-slate-900 font-bold px-12 py-3 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all w-[240px]">
-                    Search
-                </button>
-            </div>
         </div>
     );
 }
