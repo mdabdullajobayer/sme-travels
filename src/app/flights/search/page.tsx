@@ -1,14 +1,14 @@
 "use client";
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+// import Navbar from '@/components/Navbar';
+// import Footer from '@/components/Footer';
 import SearchHeader from '@/components/search/SearchHeader';
 import FlightFilters from '@/components/search/FlightFilters';
 
-export default function FlightSearchResults() {
+function SearchResultsContent() {
     const searchParams = useSearchParams();
     const origin = searchParams.get('origin') || 'DAC';
     const originCity = searchParams.get('originCity') || 'Dhaka';
@@ -187,5 +187,17 @@ export default function FlightSearchResults() {
                     </div>
                 </div>
             </main>        </div>
+    );
+}
+
+export default function FlightSearchResults() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center bg-background-light">
+                <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-4"></div>
+            </div>
+        }>
+            <SearchResultsContent />
+        </Suspense>
     );
 }

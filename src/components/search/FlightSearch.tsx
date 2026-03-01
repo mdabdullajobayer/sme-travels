@@ -21,7 +21,11 @@ export default function FlightSearch() {
     const [departureDate, setDepartureDate] = useState('2026-03-03');
     const [returnDate, setReturnDate] = useState('');
     const [travelers, setTravelers] = useState(1);
+    const [children, setChildren] = useState(0);
+    const [infants, setInfants] = useState(0);
     const [travelClass, setTravelClass] = useState('Economy');
+
+    const getTotalTravelers = () => travelers + children + infants;
 
     const [loading, setLoading] = useState(false);
     const router = useRouter();
@@ -60,6 +64,8 @@ export default function FlightSearch() {
             destinationCity: to.city,
             departureDate,
             adults: travelers.toString(),
+            children: children.toString(),
+            infants: infants.toString(),
             travelClass: travelClass,
             currencyCode: 'BDT'
         });
@@ -207,16 +213,18 @@ export default function FlightSearch() {
                             onClick={() => setShowTravelerDropdown(!showTravelerDropdown)}
                         >
                             <p className="text-xs text-slate-500 font-medium mb-1">TRAVELER, CLASS</p>
-                            <p className="text-xl font-bold text-slate-900">{travelers} Traveler{travelers > 1 ? 's' : ''}</p>
+                            <p className="text-xl font-bold text-slate-900">{getTotalTravelers()} Traveler{getTotalTravelers() > 1 ? 's' : ''}</p>
                             <p className="text-sm text-slate-500 mt-1">{travelClass.replace('_', ' ')}</p>
 
                             {/* Dropdown */}
                             {showTravelerDropdown && (
-                                <div className="absolute top-[105%] right-0 w-72 bg-white shadow-xl border border-slate-100 rounded-xl z-50 p-4" onClick={(e) => e.stopPropagation()}>
+                                <div className="absolute top-[105%] right-0 w-80 bg-white shadow-xl border border-slate-100 rounded-xl z-50 p-4" onClick={(e) => e.stopPropagation()}>
+
+                                    {/* Adults */}
                                     <div className="flex justify-between items-center mb-4">
                                         <div>
                                             <p className="font-bold text-slate-900">Adults</p>
-                                            <p className="text-xs text-slate-500">12 yrs and above</p>
+                                            <p className="text-[10px] text-slate-500">12 yrs and above</p>
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <button
@@ -232,6 +240,49 @@ export default function FlightSearch() {
                                             >+</button>
                                         </div>
                                     </div>
+
+                                    {/* Children */}
+                                    <div className="flex justify-between items-center mb-4">
+                                        <div>
+                                            <p className="font-bold text-slate-900">Children</p>
+                                            <p className="text-[10px] text-slate-500">2-11 yrs</p>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <button
+                                                className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
+                                                disabled={children <= 0}
+                                                onClick={() => setChildren(c => Math.max(0, c - 1))}
+                                            >-</button>
+                                            <span className="font-bold w-4 text-center">{children}</span>
+                                            <button
+                                                className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
+                                                disabled={children >= 9}
+                                                onClick={() => setChildren(c => Math.min(9, c + 1))}
+                                            >+</button>
+                                        </div>
+                                    </div>
+
+                                    {/* Infants */}
+                                    <div className="flex justify-between items-center mb-4">
+                                        <div>
+                                            <p className="font-bold text-slate-900">Infants</p>
+                                            <p className="text-[10px] text-slate-500">Below 2 yrs</p>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <button
+                                                className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
+                                                disabled={infants <= 0}
+                                                onClick={() => setInfants(i => Math.max(0, i - 1))}
+                                            >-</button>
+                                            <span className="font-bold w-4 text-center">{infants}</span>
+                                            <button
+                                                className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
+                                                disabled={infants >= travelers}
+                                                onClick={() => setInfants(i => Math.min(travelers, i + 1))}
+                                            >+</button>
+                                        </div>
+                                    </div>
+
                                     <div className="border-t border-slate-100 pt-4">
                                         <p className="font-bold text-slate-900 mb-2">Class</p>
                                         <div className="grid grid-cols-2 gap-2">

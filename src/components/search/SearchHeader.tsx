@@ -8,6 +8,8 @@ interface SearchHeaderProps {
     initialDestination: string;
     initialDepartureDate: string;
     initialAdults: string;
+    initialChildren?: string;
+    initialInfants?: string;
     initialTravelClass: string;
 }
 
@@ -16,6 +18,8 @@ export default function SearchHeader({
     initialDestination,
     initialDepartureDate,
     initialAdults,
+    initialChildren = '0',
+    initialInfants = '0',
     initialTravelClass
 }: SearchHeaderProps) {
     const router = useRouter();
@@ -26,15 +30,24 @@ export default function SearchHeader({
     const [origin, setOrigin] = useState(initialOrigin);
     const [destination, setDestination] = useState(initialDestination);
     const [departureDate, setDepartureDate] = useState(initialDepartureDate || '');
-    const [adults, setAdults] = useState(initialAdults);
+
+    // Traveler state
+    const [adults, setAdults] = useState(parseInt(initialAdults) || 1);
+    const [children, setChildren] = useState(parseInt(initialChildren) || 0);
+    const [infants, setInfants] = useState(parseInt(initialInfants) || 0);
     const [travelClass, setTravelClass] = useState(initialTravelClass);
+    const [showTravelerDropdown, setShowTravelerDropdown] = useState(false);
+
+    const getTotalTravelers = () => adults + children + infants;
 
     const handleSearch = () => {
         const queryParams = new URLSearchParams({
             origin,
             destination,
             departureDate,
-            adults,
+            adults: adults.toString(),
+            children: children.toString(),
+            infants: infants.toString(),
             travelClass,
             currencyCode: 'BDT'
         });
@@ -99,27 +112,107 @@ export default function SearchHeader({
                             />
                         </div>
 
-                        <div className="md:col-span-2 pb-2 md:pb-0 border-b md:border-b-0 border-white/20 pl-0 md:pl-2">
+                        <div className="md:col-span-2 pb-2 md:pb-0 border-b md:border-b-0 border-white/20 pl-0 md:pl-2 relative">
                             <label className="text-[10px] text-white/70 uppercase font-bold tracking-wider px-3">Traveler & Class</label>
-                            <div className="flex px-3 gap-2">
-                                <select
-                                    className="bg-transparent text-white font-bold outline-none cursor-pointer w-1/3"
-                                    value={adults}
-                                    onChange={(e) => setAdults(e.target.value)}
-                                >
-                                    {[1, 2, 3, 4, 5, 6].map(num => <option key={num} value={num} className="text-slate-900">{num}</option>)}
-                                </select>
-                                <select
-                                    className="bg-transparent text-white font-bold outline-none cursor-pointer w-2/3 truncate"
-                                    value={travelClass}
-                                    onChange={(e) => setTravelClass(e.target.value)}
-                                >
-                                    <option value="Economy" className="text-slate-900">Economy</option>
-                                    <option value="Premium_Economy" className="text-slate-900">Prem. Eco</option>
-                                    <option value="Business" className="text-slate-900">Business</option>
-                                    <option value="First" className="text-slate-900">First</option>
-                                </select>
+
+                            <div
+                                className="flex px-3 gap-2 cursor-pointer mt-1"
+                                onClick={() => setShowTravelerDropdown(!showTravelerDropdown)}
+                            >
+                                <div className="text-white font-bold truncate">
+                                    {getTotalTravelers()} Traveler{getTotalTravelers() > 1 ? 's' : ''}, {travelClass.replace('_', ' ')}
+                                </div>
                             </div>
+
+                            {/* Dropdown */}
+                            {showTravelerDropdown && (
+                                <div className="absolute top-[105%] right-0 md:right-auto md:left-0 w-80 bg-white shadow-xl border border-slate-100 rounded-xl z-50 p-4" onClick={(e) => e.stopPropagation()}>
+
+                                    {/* Adults */}
+                                    <div className="flex justify-between items-center mb-4">
+                                        <div>
+                                            <p className="font-bold text-slate-900">Adults</p>
+                                            <p className="text-[10px] text-slate-500">12 yrs and above</p>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <button
+                                                className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
+                                                disabled={adults <= 1}
+                                                onClick={() => setAdults(t => Math.max(1, t - 1))}
+                                            >-</button>
+                                            <span className="font-bold text-slate-900 w-4 text-center">{adults}</span>
+                                            <button
+                                                className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
+                                                disabled={adults >= 9}
+                                                onClick={() => setAdults(t => Math.min(9, t + 1))}
+                                            >+</button>
+                                        </div>
+                                    </div>
+
+                                    {/* Children */}
+                                    <div className="flex justify-between items-center mb-4">
+                                        <div>
+                                            <p className="font-bold text-slate-900">Children</p>
+                                            <p className="text-[10px] text-slate-500">2-11 yrs</p>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <button
+                                                className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
+                                                disabled={children <= 0}
+                                                onClick={() => setChildren(c => Math.max(0, c - 1))}
+                                            >-</button>
+                                            <span className="font-bold text-slate-900 w-4 text-center">{children}</span>
+                                            <button
+                                                className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
+                                                disabled={children >= 9}
+                                                onClick={() => setChildren(c => Math.min(9, c + 1))}
+                                            >+</button>
+                                        </div>
+                                    </div>
+
+                                    {/* Infants */}
+                                    <div className="flex justify-between items-center mb-4">
+                                        <div>
+                                            <p className="font-bold text-slate-900">Infants</p>
+                                            <p className="text-[10px] text-slate-500">Below 2 yrs</p>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <button
+                                                className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
+                                                disabled={infants <= 0}
+                                                onClick={() => setInfants(i => Math.max(0, i - 1))}
+                                            >-</button>
+                                            <span className="font-bold text-slate-900 w-4 text-center">{infants}</span>
+                                            <button
+                                                className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:text-slate-600"
+                                                disabled={infants >= adults}
+                                                onClick={() => setInfants(i => Math.min(adults, i + 1))}
+                                            >+</button>
+                                        </div>
+                                    </div>
+
+                                    <div className="border-t border-slate-100 pt-4">
+                                        <p className="font-bold text-slate-900 mb-2">Class</p>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            {['Economy', 'Premium_Economy', 'Business', 'First'].map((c) => (
+                                                <div
+                                                    key={c}
+                                                    className={`p-2 border rounded-lg text-center cursor-pointer text-sm font-medium transition-colors ${travelClass === c ? 'border-primary bg-primary/5 text-primary' : 'border-slate-200 text-slate-600 hover:border-primary'}`}
+                                                    onClick={() => setTravelClass(c)}
+                                                >
+                                                    {c.replace('_', ' ')}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <button
+                                        className="w-full mt-4 bg-primary text-white font-bold py-2 rounded-lg hover:bg-primary/90 transition-colors"
+                                        onClick={() => setShowTravelerDropdown(false)}
+                                    >
+                                        Done
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
                         <div className="md:col-span-2 pl-0 md:pl-2 pt-2 md:pt-0 flex items-end">
