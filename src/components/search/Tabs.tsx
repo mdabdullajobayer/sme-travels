@@ -18,7 +18,8 @@ export default function Tabs({ activeTab, setActiveTab }: TabsProps) {
     ] as const;
 
     return (
-        <div className="flex border-b border-slate-200 px-6 pt-4">
+        <div className="border-b border-slate-200 px-3 sm:px-6 pt-3 sm:pt-4 overflow-x-auto">
+            <div className="flex min-w-max">
             {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -27,10 +28,10 @@ export default function Tabs({ activeTab, setActiveTab }: TabsProps) {
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id as TabType)}
-                        className={`flex items-center gap-2 px-6 py-4 font-semibold text-lg relative transition-colors ${isActive ? 'text-primary' : 'text-slate-600 hover:text-primary'
+                        className={`shrink-0 flex items-center gap-2 px-3 sm:px-6 py-3 sm:py-4 font-semibold text-sm sm:text-lg relative transition-colors whitespace-nowrap ${isActive ? 'text-primary' : 'text-slate-600 hover:text-primary'
                             }`}
                     >
-                        <Icon className="w-5 h-5" />
+                        <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                         {tab.label}
                         {isActive && (
                             <span className="absolute bottom-0 left-0 w-full h-1 bg-secondary rounded-t-md"></span>
@@ -38,6 +39,7 @@ export default function Tabs({ activeTab, setActiveTab }: TabsProps) {
                     </button>
                 );
             })}
+            </div>
         </div>
     );
 }

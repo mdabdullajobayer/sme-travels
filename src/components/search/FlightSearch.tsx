@@ -14,6 +14,16 @@ const popularAirports = [
     { city: 'Bangkok', code: 'BKK', airport: 'Suvarnabhumi Airport' },
 ];
 
+function normalizeTravelClassInput(value: string): string {
+    return value.trim().toLowerCase().replace(/[\s-]+/g, '_');
+}
+
+function mapFlightTypeToQueryType(flightType: string): 'round-trip' | 'one-way' | 'multi-city' {
+    if (flightType === 'Round Trip') return 'round-trip';
+    if (flightType === 'Multi City') return 'multi-city';
+    return 'one-way';
+}
+
 export default function FlightSearch() {
     const [selectedFlightType, setSelectedFlightType] = useState('One Way');
     const [from, setFrom] = useState({ city: 'Dhaka', code: 'DAC', airport: 'Hazrat Shahjalal International Airport' });
@@ -65,10 +75,15 @@ export default function FlightSearch() {
             departureDate,
             adults: travelers.toString(),
             children: children.toString(),
-            infants: infants.toString(),
-            travelClass: travelClass,
-            currencyCode: 'BDT'
+            infants_in_seat: infants.toString(),
+            infants_on_lap: '0',
+            travelClass: normalizeTravelClassInput(travelClass),
+            type: mapFlightTypeToQueryType(selectedFlightType),
         });
+
+        if (selectedFlightType !== 'One Way' && returnDate) {
+            queryParams.set('returnDate', returnDate);
+        }
 
         router.push(`/flights/search?${queryParams.toString()}`);
     };
@@ -193,7 +208,7 @@ export default function FlightSearch() {
                             </div>
                             <div className="w-1/2 p-3 bg-slate-50/50">
                                 <p className="text-xs text-slate-500 font-medium mb-1">RETURN DATE</p>
-                                {selectedFlightType === 'Round Trip' ? (
+                                {selectedFlightType !== 'One Way' ? (
                                     <input
                                         type="date"
                                         className="text-lg font-bold text-slate-900 w-full outline-none bg-transparent"

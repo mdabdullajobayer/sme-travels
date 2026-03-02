@@ -1,78 +1,99 @@
 import { NextResponse } from 'next/server';
+import { searchFlights } from '@/controllers/flight.controller';
+import { FlightSearchParams } from '@/types/serpapi.types';
 
-const AMADEUS_BASE_URL = 'https://test.api.amadeus.com';
-const API_KEY = 'pkH6KZ0zTzUQj8CImkrgtP9QzIEAkGWN';
-const API_SECRET = 'qzkC1b0sbmybRFAJ';
+function normalizeTravelClassInput(value: string): string {
+    return value.trim().toLowerCase().replace(/[\s-]+/g, '_');
+}
 
-let accessToken = '';
-let tokenExpiration = 0;
-
-async function getAccessToken() {
-    if (accessToken && Date.now() < tokenExpiration) {
-        return accessToken;
+function normalizeTripTypeInput(value: string | null, hasReturnDate: boolean): FlightSearchParams['type'] {
+    if (value === '1') return 'round-trip';
+    if (value === '2') return 'one-way';
+    if (value === '3') return 'multi-city';
+    if (value === 'round-trip' || value === 'one-way' || value === 'multi-city') {
+        return value;
     }
 
-    const response = await fetch(`${AMADEUS_BASE_URL}/v1/security/oauth2/token`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-            grant_type: 'client_credentials',
-            client_id: API_KEY,
-            client_secret: API_SECRET,
-        }),
-    });
+    return hasReturnDate ? 'round-trip' : 'one-way';
+}
 
-    if (!response.ok) {
-        throw new Error('Failed to get Amadeus access token');
+function parseMultiCitySegments(value: string | null): FlightSearchParams['multiCitySegments'] {
+    if (!value) {
+        return undefined;
     }
 
-    const data = await response.json();
-    accessToken = data.access_token;
-    // Expire 1 minute before actual expiration to be safe
-    tokenExpiration = Date.now() + (data.expires_in - 60) * 1000;
+    try {
+        const parsed = JSON.parse(value);
+        if (!Array.isArray(parsed)) {
+            return undefined;
+        }
 
-    return accessToken;
+        return parsed
+            .filter((segment) => segment?.departureId && segment?.arrivalId && segment?.date)
+            .map((segment) => ({
+                departureId: String(segment.departureId).toUpperCase(),
+                arrivalId: String(segment.arrivalId).toUpperCase(),
+                date: String(segment.date),
+            }));
+    } catch {
+        return undefined;
+    }
 }
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
-    const origin = searchParams.get('origin');
-    const destination = searchParams.get('destination');
-    const departureDate = searchParams.get('departureDate');
-    const adults = searchParams.get('adults') || '1';
-    const travelClass = searchParams.get('travelClass') || 'ECONOMY';
-    const currencyCode = searchParams.get('currencyCode') || 'BDT';
+    const origin = searchParams.get('origin')?.trim();
+    const destination = searchParams.get('destination')?.trim();
+    const departDate = searchParams.get('departDate') || searchParams.get('departureDate');
+    const returnDate = searchParams.get('returnDate') || undefined;
+    const adults = Number(searchParams.get('adults') || '1');
+    const children = Number(searchParams.get('children') || '0');
+    const infantsInSeat = Number(searchParams.get('infants_in_seat') || searchParams.get('infantsInSeat') || searchParams.get('infants') || '0');
+    const infantsOnLap = Number(searchParams.get('infants_on_lap') || searchParams.get('infantsOnLap') || '0');
+    const travelClass = searchParams.get('travelClass') || 'economy';
+    const tripType = normalizeTripTypeInput(searchParams.get('type'), Boolean(returnDate));
+    const moreOptions = searchParams.get('moreOptions') === 'true';
+    const multiCitySegments = parseMultiCitySegments(searchParams.get('multiCitySegments'));
+    const provider: FlightSearchParams['provider'] = 'serpapi';
 
-    if (!origin || !destination || !departureDate) {
+    if (!origin || !destination || !departDate) {
         return NextResponse.json(
-            { error: 'Missing required parameters: origin, destination, departureDate' },
+            { error: 'Missing required parameters: origin, destination, departDate' },
             { status: 400 }
         );
     }
 
     try {
-        const token = await getAccessToken();
-
-        const url = `${AMADEUS_BASE_URL}/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=${adults}&travelClass=${travelClass.toUpperCase()}&currencyCode=${currencyCode}&max=10`;
-
-        const response = await fetch(url, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
+        const flights = await searchFlights({
+            origin,
+            destination,
+            departDate,
+            returnDate,
+            adults,
+            children,
+            infantsInSeat,
+            infantsOnLap,
+            travelClass: normalizeTravelClassInput(travelClass) as FlightSearchParams['travelClass'],
+            type: tripType,
+            multiCitySegments,
+            moreOptions,
+            provider,
         });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error('Amadeus API error:', errorText);
-            return NextResponse.json({ error: 'Failed to fetch flights from Amadeus' }, { status: response.status });
-        }
-
-        const data = await response.json();
-        return NextResponse.json(data);
+        return NextResponse.json({
+            data: flights,
+            meta: {
+                total: flights.length,
+                currency: 'BDT',
+                providers: ['serpapi'],
+            },
+        });
     } catch (error) {
         console.error('Flight search error:', error);
-        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+
+        const message = error instanceof Error ? error.message : 'Internal server error';
+        const status = /rate limit/i.test(message) ? 429 : 500;
+
+        return NextResponse.json({ error: message }, { status });
     }
 }

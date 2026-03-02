@@ -7,8 +7,11 @@ interface SearchHeaderProps {
     initialOrigin: string;
     initialDestination: string;
     initialDepartureDate: string;
+    initialReturnDate?: string;
     initialAdults: string;
     initialChildren?: string;
+    initialInfantsInSeat?: string;
+    initialInfantsOnLap?: string;
     initialInfants?: string;
     initialTravelClass: string;
 }
@@ -17,8 +20,11 @@ export default function SearchHeader({
     initialOrigin,
     initialDestination,
     initialDepartureDate,
+    initialReturnDate = '',
     initialAdults,
     initialChildren = '0',
+    initialInfantsInSeat,
+    initialInfantsOnLap = '0',
     initialInfants = '0',
     initialTravelClass
 }: SearchHeaderProps) {
@@ -26,19 +32,27 @@ export default function SearchHeader({
     const flightTypes = ['One Way', 'Round Trip', 'Multi City'];
 
     // Manage local state before allowing user to search again
-    const [selectedFlightType, setSelectedFlightType] = useState('One Way');
+    const [selectedFlightType, setSelectedFlightType] = useState(initialReturnDate ? 'Round Trip' : 'One Way');
     const [origin, setOrigin] = useState(initialOrigin);
     const [destination, setDestination] = useState(initialDestination);
     const [departureDate, setDepartureDate] = useState(initialDepartureDate || '');
+    const [returnDate, setReturnDate] = useState(initialReturnDate || '');
 
     // Traveler state
     const [adults, setAdults] = useState(parseInt(initialAdults) || 1);
     const [children, setChildren] = useState(parseInt(initialChildren) || 0);
-    const [infants, setInfants] = useState(parseInt(initialInfants) || 0);
+    const [infants, setInfants] = useState(parseInt(initialInfantsInSeat ?? initialInfants) || 0);
+    const [infantsOnLap] = useState(parseInt(initialInfantsOnLap) || 0);
     const [travelClass, setTravelClass] = useState(initialTravelClass);
     const [showTravelerDropdown, setShowTravelerDropdown] = useState(false);
 
     const getTotalTravelers = () => adults + children + infants;
+
+    const mapFlightTypeToQueryType = (flightType: string): 'round-trip' | 'one-way' | 'multi-city' => {
+        if (flightType === 'Round Trip') return 'round-trip';
+        if (flightType === 'Multi City') return 'multi-city';
+        return 'one-way';
+    };
 
     const handleSearch = () => {
         const queryParams = new URLSearchParams({
@@ -47,10 +61,15 @@ export default function SearchHeader({
             departureDate,
             adults: adults.toString(),
             children: children.toString(),
-            infants: infants.toString(),
+            infants_in_seat: infants.toString(),
+            infants_on_lap: infantsOnLap.toString(),
             travelClass,
-            currencyCode: 'BDT'
+            type: mapFlightTypeToQueryType(selectedFlightType),
         });
+
+        if (selectedFlightType !== 'One Way' && returnDate) {
+            queryParams.set('returnDate', returnDate);
+        }
 
         router.push(`/flights/search?${queryParams.toString()}`);
     };
@@ -110,6 +129,14 @@ export default function SearchHeader({
                                 onChange={(e) => setDepartureDate(e.target.value)}
                                 className="w-full bg-transparent text-white font-bold text-lg px-3 outline-none [color-scheme:dark]"
                             />
+                            {selectedFlightType !== 'One Way' && (
+                                <input
+                                    type="date"
+                                    value={returnDate}
+                                    onChange={(e) => setReturnDate(e.target.value)}
+                                    className="w-full bg-transparent text-white font-bold text-lg px-3 outline-none [color-scheme:dark] mt-2"
+                                />
+                            )}
                         </div>
 
                         <div className="md:col-span-2 pb-2 md:pb-0 border-b md:border-b-0 border-white/20 pl-0 md:pl-2 relative">
