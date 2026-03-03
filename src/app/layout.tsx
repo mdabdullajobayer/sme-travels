@@ -7,8 +7,8 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Amy GoZayaan Clone",
-  description: "Next.js Travel Agency Clone",
+  title: "SME Travel Agency - Book Your Next Adventure",
+  description: "Discover amazing travel deals and unforgettable experiences with SME Travel Agency. Book flights, hotels, and vacation packages to your dream destinations today!",
 };
 
 export default function RootLayout({

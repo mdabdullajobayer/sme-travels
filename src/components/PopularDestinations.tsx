@@ -40,7 +40,7 @@ export default function PopularDestinations() {
     ];
 
     return (
-        <section className="w-full px-8 sm:px-6 lg:px-8 py-12">
+        <section className="w-full max-w-7xl mx-auto px-8 sm:px-6 lg:px-8 py-12">
             <div className="mb-8 text-center sm:text-left">
                 <h2 className="text-3xl font-bold text-slate-900 mb-2">Explore Popular Destinations</h2>
                 <p className="text-slate-600">These destinations have a lot to offer</p>

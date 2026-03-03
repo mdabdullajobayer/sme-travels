@@ -109,7 +109,7 @@ export default function FlightSearch() {
                     </div>
 
                     {/* Input Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-stretch">
                         {/* From */}
                         <div
                             ref={fromRef}
@@ -323,7 +323,7 @@ export default function FlightSearch() {
                         </div>
                     </div>
 
-                    <div className="flex justify-center mt-2">
+                    <div className="flex justify-center">
                         <button
                             onClick={handleSearch}
                             disabled={loading}
