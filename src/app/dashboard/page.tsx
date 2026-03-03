@@ -10,8 +10,8 @@ export default function DashboardPage() {
         <div className="space-y-6">
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <p className="text-sm text-slate-500">Welcome back</p>
-                <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mt-1">Traveler Dashboard</h1>
-                <p className="text-sm text-slate-600 mt-2">Track your trips, profile, and bookings from one place.</p>
+                <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mt-1">SME Travel Agency Dashboard</h1>
+                <p className="text-sm text-slate-600 mt-2">Track flights, hotels, tours, and visa bookings from one place.</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">

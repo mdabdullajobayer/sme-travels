@@ -5,7 +5,8 @@ export default function ForgotPasswordPage() {
         <section className="min-h-[calc(100vh-8rem)] py-12 px-4 flex items-center justify-center">
             <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white shadow-lg p-6 md:p-8">
                 <h1 className="text-2xl font-bold text-slate-900 mb-2">Reset Password</h1>
-                <p className="text-sm text-slate-600 mb-6">Enter your email and we&apos;ll send a reset link.</p>
+                <p className="text-sm text-slate-600 mb-2">Enter your email and we&apos;ll send a reset link.</p>
+                <p className="text-xs text-slate-500 mb-6">SME Travel Agency - Book Your Next Adventure</p>
 
                 <form className="space-y-4">
                     <div>

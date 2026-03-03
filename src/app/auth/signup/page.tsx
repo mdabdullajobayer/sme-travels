@@ -6,11 +6,11 @@ export default function SignupPage() {
             <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
                 <div className="rounded-3xl bg-gradient-to-br from-primary to-blue-500 text-white p-8 md:p-10 shadow-xl">
                     <p className="inline-flex px-3 py-1 rounded-full bg-white/20 text-xs font-semibold tracking-wide uppercase mb-5">
-                        Join SME Travels
+                        Join SME Travel Agency
                     </p>
                     <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-4">Create your travel account and book faster every time.</h1>
                     <p className="text-white/90 text-sm md:text-base max-w-lg mb-8">
-                        Save traveler info, manage bookings, and get exclusive member-only deals from your personal dashboard.
+                        Create your account for SME Travel Agency - Book Your Next Adventure and manage flights, hotels, tours, and visa bookings in one place.
                     </p>
 
                     <div className="grid grid-cols-2 gap-3 text-sm">
@@ -57,7 +57,7 @@ export default function SignupPage() {
                             I agree to the Terms, Privacy Policy, and receive booking updates.
                         </label>
 
-                        <Link href="/dashboard" className="w-full h-11 rounded-lg bg-primary text-white font-semibold hover:bg-primary-hover transition-colors flex items-center justify-center">
+                        <Link href="/auth/verify-email" className="w-full h-11 rounded-lg bg-primary text-white font-semibold hover:bg-primary-hover transition-colors flex items-center justify-center">
                             Create Account
                         </Link>
                     </form>

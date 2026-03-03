@@ -11,7 +11,7 @@ export default function BookingsPage() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-5">
                 <div>
                     <h1 className="text-2xl font-bold text-slate-900">Booking List</h1>
-                    <p className="text-sm text-slate-600">All your recent and upcoming bookings.</p>
+                    <p className="text-sm text-slate-600">All your SME Travel Agency flights, hotels, tours, and visa bookings.</p>
                 </div>
                 <button className="h-10 px-4 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primary-hover transition-colors w-full md:w-auto">
                     New Booking

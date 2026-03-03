@@ -3,7 +3,7 @@ export default function ProfilePage() {
         <div className="space-y-6">
             <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
                 <h1 className="text-2xl font-bold text-slate-900">My Profile</h1>
-                <p className="text-sm text-slate-600 mt-1">Manage personal details and travel preferences.</p>
+                <p className="text-sm text-slate-600 mt-1">Manage your traveler details for faster booking with SME Travel Agency.</p>
             </div>
 
             <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">

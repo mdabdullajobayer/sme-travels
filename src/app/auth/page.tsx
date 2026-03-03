@@ -6,11 +6,11 @@ export default function AuthPage() {
             <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
                 <div className="rounded-3xl bg-gradient-to-br from-primary to-blue-500 text-white p-8 md:p-10 shadow-xl">
                     <p className="inline-flex px-3 py-1 rounded-full bg-white/20 text-xs font-semibold tracking-wide uppercase mb-5">
-                        Welcome Back
+                        SME Travel Agency
                     </p>
                     <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-4">Manage bookings, profile, and your next journey in one place.</h1>
                     <p className="text-white/90 text-sm md:text-base max-w-lg mb-8">
-                        Sign in to access your dashboard, track all reservations, and keep your travel details updated for faster booking.
+                        Sign in to SME Travel Agency - Book Your Next Adventure and manage flights, hotels, tours, and visa services from one dashboard.
                     </p>
 
                     <div className="grid grid-cols-2 gap-3 text-sm">

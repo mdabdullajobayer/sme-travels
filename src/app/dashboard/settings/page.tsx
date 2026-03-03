@@ -3,7 +3,7 @@ export default function SettingsPage() {
         <div className="space-y-6">
             <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
                 <h1 className="text-2xl font-bold text-slate-900">Account Settings</h1>
-                <p className="text-sm text-slate-600 mt-1">Control notifications, security, and preferences.</p>
+                <p className="text-sm text-slate-600 mt-1">Control your SME Travel Agency alerts, security, and account preferences.</p>
             </div>
 
             <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm space-y-5">

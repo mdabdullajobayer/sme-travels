@@ -12,7 +12,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6">
                 <aside className="rounded-2xl border border-slate-200 bg-white p-4 h-fit shadow-sm">
-                    <h2 className="text-lg font-bold text-slate-900 mb-4">User Dashboard</h2>
+                    <h2 className="text-lg font-bold text-slate-900 mb-1">SME Travel Agency</h2>
+                    <p className="text-xs text-slate-500 mb-4">Book Your Next Adventure</p>
                     <nav className="space-y-2">
                         {links.map((item) => (
                             <Link
@@ -27,7 +28,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
                     <div className="mt-6 rounded-xl bg-primary/5 border border-primary/15 p-3">
                         <p className="text-xs font-semibold text-primary uppercase tracking-wide">Membership</p>
-                        <p className="text-sm text-slate-700 mt-1">Gold Traveler</p>
+                        <p className="text-sm text-slate-700 mt-1">SME Premium Traveler</p>
                     </div>
                 </aside>
 
