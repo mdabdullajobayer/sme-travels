@@ -3,8 +3,22 @@ import { Facebook, Youtube, Instagram, MapPin, Mail, Phone } from 'lucide-react'
 import Image from 'next/image';
 
 export default function Footer() {
+    const paymentMethods = [
+        { name: 'Visa', icon: '/payment-methods/visa.svg' },
+        { name: 'Mastercard', icon: '/payment-methods/mastercard.svg' },
+        { name: 'American Express', icon: '/payment-methods/amex.svg' },
+        { name: 'bKash', icon: '/payment-methods/bkash.svg' },
+        { name: 'Nagad', icon: '/payment-methods/nagad.svg' },
+        { name: 'Rocket', icon: '/payment-methods/rocket.svg' },
+        { name: 'Upay', icon: '/payment-methods/upay.svg' },
+        { name: 'DBBL Nexus', icon: '/payment-methods/dbbl.svg' },
+        { name: 'Citytouch', icon: '/payment-methods/citytouch.svg' },
+        { name: 'SSLCommerz', icon: '/payment-methods/sslcommerz.svg' },
+        { name: 'Cash On Delivery', icon: '/payment-methods/cod.svg' },
+    ];
+
     return (
-        <footer className="bg-[#000161] text-white pt-16 pb-6 mt-20">
+        <footer className="bg-[#000161] text-white pt-16 pb-6">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Upper Section */}
@@ -32,10 +46,16 @@ export default function Footer() {
                     <div>
                         <h4 className="text-lg font-bold mb-6">Payment Methods</h4>
                         <div className="grid grid-cols-4 gap-3">
-                            {/* Mocking the 11 payment providers with simple boxes for now */}
-                            {[...Array(11)].map((_, i) => (
-                                <div key={i} className="bg-white/10 rounded-md h-8 w-12 flex items-center justify-center text-[10px] font-bold text-white/50">
-                                    Pay
+                            {paymentMethods.map((method) => (
+                                <div key={method.name} className="bg-white rounded-md h-8 w-12 flex items-center justify-center p-1">
+                                    <Image
+                                        src={method.icon}
+                                        alt={method.name}
+                                        title={method.name}
+                                        width={48}
+                                        height={30}
+                                        className="max-w-full max-h-full object-contain"
+                                    />
                                 </div>
                             ))}
                         </div>
@@ -65,7 +85,7 @@ export default function Footer() {
                         <div className="space-y-4 mb-8">
                             <a href="mailto:info@gozayaan.com" className="flex items-center gap-3 text-sm text-slate-300 hover:text-white transition-colors">
                                 <Mail className="w-5 h-5 shrink-0" />
-                                info@amygozayaan.com
+                                info@smetravels.com
                             </a>
                             <a href="tel:+8809678332211" className="flex items-center gap-3 text-sm text-slate-300 hover:text-white transition-colors">
                                 <Phone className="w-5 h-5 shrink-0" />

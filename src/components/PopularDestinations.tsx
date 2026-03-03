@@ -6,35 +6,35 @@ export default function PopularDestinations() {
             id: 1,
             city: "Cox's Bazar",
             country: "Bangladesh",
-            image: "https://images.unsplash.com/photo-1608958435020-e855b0b30fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            image: "/destinations/coxs-bazar.png",
             properties: 124
         },
         {
             id: 2,
             city: "Kathmandu",
             country: "Nepal",
-            image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            image: "/destinations/kathmandu.png",
             properties: 342
         },
         {
             id: 3,
             city: "Bangkok",
             country: "Thailand",
-            image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            image: "/destinations/bangkok.png",
             properties: 1530
         },
         {
             id: 4,
             city: "Dubai",
             country: "UAE",
-            image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            image: "/destinations/dubai.png",
             properties: 850
         },
         {
             id: 5,
             city: "Sylhet",
             country: "Bangladesh",
-            image: "https://images.unsplash.com/photo-1631464372986-e3d64fe3050c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            image: "/destinations/sylhet.png",
             properties: 86
         }
     ];

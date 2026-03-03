@@ -4,14 +4,11 @@ import PopularDestinations from "@/components/PopularDestinations";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import DownloadApp from "@/components/DownloadApp";
 import TravelPartners from "@/components/TravelPartners";
-import Newsletter from "@/components/Newsletter";
+
 export default function Home() {
   return (
     <div className="flex flex-col gap-8 min-h-screen">
       <Hero />
-
-      {/* Spacer for the absolute positioned search button overlap */}
-      <div className="h-8 md:h-12"></div>
 
       <Promotions />
 
@@ -19,11 +16,11 @@ export default function Home() {
 
       <WhyChooseUs />
 
+      <TravelPartners />
+
       <DownloadApp />
 
-      <Newsletter />
-
-      <TravelPartners />
+      {/* <Newsletter /> */}
 
     </div>
   );
