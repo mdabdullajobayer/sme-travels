@@ -17,10 +17,10 @@ export default function Hero() {
                         Trusted Travel Partner for Flights, Hotels & Holidays
                     </div>
                     <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 leading-tight tracking-tight drop-shadow-md">
-                        সব থেকে স্বল্প খরচে ভ্রমণ
+                        সবচেয়ে সাশ্রয়ী মূল্যে ভ্রমণের নিশ্চয়তা 
                     </h1>
                     <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed drop-shadow-sm">
-                        সবচেয়ে সাশ্রয়ী মূল্যে ভ্রমণের নিশ্চয়তা 
+                        
                     </p>
                 </div>
 
