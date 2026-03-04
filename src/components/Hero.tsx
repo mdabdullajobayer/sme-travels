@@ -20,7 +20,7 @@ export default function Hero() {
                         সব থেকে স্বল্প খরচে ভ্রমণ
                     </h1>
                     <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed drop-shadow-sm">
-                        Find the best flights, hotels, and tours at unbeatable prices.
+                        সবচেয়ে সাশ্রয়ী মূল্যে ভ্রমণের নিশ্চয়তা 
                     </p>
                 </div>
 

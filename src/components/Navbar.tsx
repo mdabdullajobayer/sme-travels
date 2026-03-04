@@ -16,9 +16,18 @@ export default function Navbar() {
 
                     {/* Right side navigation items */}
                     <div className="hidden md:flex items-center space-x-6">
-                        <button className="text-slate-600 hover:text-primary font-medium flex items-center gap-2 transition-colors">
-                            BDT <span className="text-xs">▼</span>
-                        </button>
+                        <div className="relative">
+                            <select
+                                defaultValue="BDT"
+                                className="appearance-none bg-transparent text-slate-600 hover:text-primary font-medium pr-6 pl-1 py-1 transition-colors focus:outline-none cursor-pointer"
+                            >
+                                <option value="BDT">BDT</option>
+                                <option value="USD">USD</option>
+                            </select>
+                            <span className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-xs text-slate-500">
+                                ▼
+                            </span>
+                        </div>
                         <button className="text-slate-600 hover:text-primary transition-colors">
                             <MessageCircle className="w-5 h-5" />
                         </button>

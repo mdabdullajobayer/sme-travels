@@ -4,15 +4,15 @@ export default function Promotions() {
     const promotions = [
         {
             id: 1,
-            image: '/offers/image.png',
+            image: '/offers/image.jpg',
         },
         {
             id: 2,
-            image: '/offers/image.png',
+            image: '/offers/image.jpg',
         },
         {
             id: 3,
-            image: '/offers/image.png',
+            image: '/offers/image.jpg',
         }
     ];
 
