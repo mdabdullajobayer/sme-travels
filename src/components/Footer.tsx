@@ -1,6 +1,7 @@
 import React from 'react';
 import { Facebook, Youtube, Instagram, MapPin, Mail, Phone } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Footer() {
     const paymentMethods = [
@@ -29,15 +30,15 @@ export default function Footer() {
                         <h4 className="text-lg font-bold mb-6">Discover</h4>
                         <div className="flex gap-12">
                             <ul className="space-y-3 text-sm text-slate-300">
-                                <li><a href="#" className="hover:text-white transition-colors">Home</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Talent & Culture</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Refund Policy</a></li>
+                                <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
+                                <li><Link href="/terms" className="hover:text-white transition-colors">Terms</Link></li>
+                                <li><Link href="/talent-culture" className="hover:text-white transition-colors">Talent & Culture</Link></li>
+                                <li><Link href="/refund-policy" className="hover:text-white transition-colors">Refund Policy</Link></li>
                             </ul>
                             <ul className="space-y-3 text-sm text-slate-300">
-                                <li><a href="#" className="hover:text-white transition-colors">EMI Policy</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
+                                <li><Link href="/emi-policy" className="hover:text-white transition-colors">EMI Policy</Link></li>
+                                <li><Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+                                <li><Link href="/about-us" className="hover:text-white transition-colors">About Us</Link></li>
                             </ul>
                         </div>
                     </div>
@@ -83,7 +84,7 @@ export default function Footer() {
                     <div>
                         <h4 className="text-lg font-bold mb-6">Contact</h4>
                         <div className="space-y-4 mb-8">
-                            <a href="mailto:info@gozayaan.com" className="flex items-center gap-3 text-sm text-slate-300 hover:text-white transition-colors">
+                            <a href="mailto:info@smetravels.com" className="flex items-center gap-3 text-sm text-slate-300 hover:text-white transition-colors">
                                 <Mail className="w-5 h-5 shrink-0" />
                                 info@smetravels.com
                             </a>
@@ -114,7 +115,7 @@ export default function Footer() {
                         <Image src="/sme_logo.png" alt="Logo" width={180} height={100} />
                     </div>
                     <p className="text-sm text-slate-300">
-                        &copy; Copyright {new Date().getFullYear()} AmyGozayaan Ltd.
+                        &copy; Copyright {new Date().getFullYear()} SME Travel Agency - Book Your Next Adventure
                     </p>
                 </div>
 
