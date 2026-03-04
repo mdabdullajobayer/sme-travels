@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #006CE4;
-  --color-primary-hover: #005bb5;
-  --color-secondary: #FFC107;
-  --color-secondary-hover: #e0a800;
-  --color-background-light: #F5F7FA;
+  --color-primary: #174589;          /* Deep logo blue */
+  --color-primary-hover: #123a73;    /* Darker blue */
+
+  --color-secondary: #AA5555;        /* Logo red tone */
+  --color-secondary-hover: #8e4444;  /* Darker red */
+
+  --color-background-light: #F4F7FB; /* Soft bluish background */
 
   --animate-marquee: marquee 25s linear infinite;
   --animate-marquee2: marquee2 25s linear infinite;
